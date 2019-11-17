@@ -7,11 +7,11 @@
 ;; Indent comments
 ;; fix single lines comments to highlight properly
 ;; add multiline comment highlighting 
+;; the "-" is not treated as a comment when it's a minus
 
 ;; TODO
-;; ~ the "-" is treated as a comment even when it's a minus, is it even for comments?
-;; var and const indenting must be split up or else assignment statements after var get indented incorrectly
-;; assignment after for not indenting properly
+;; - if block gets highlighted as a function if a "(" follows
+
 
 (defvar type-regexp
   (regexp-opt
