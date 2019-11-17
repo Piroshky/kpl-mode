@@ -32,6 +32,8 @@
      "until" "uses" "var" "while") 'words)
   "Regex for matching keywords in KPL")
 
+(defvar var-declaration-regexp "^[ \t]*[a-zA-Z0-9_]+\\(, [a-zA-Z0-9_]+\\)*\\:")
+
 (defvar kpl-mode-font-lock-defaults
 	`(
 		;;("--.*$" . font-lock-comment-face)
@@ -89,10 +91,9 @@
 (defun default-indent ()
 	"assumes (last-meaningful) has already been called
    decides indentation based on whether it's a block-starter"
-	(if (= 0 (count-lines 1 (point)))
-			0
+	(if (bobp) 0
 		(progn
-			(if (looking-at "^[ \t]*[a-zA-Z_]+:.*") (setq delta (- delta 2)))
+			(if (looking-at var-declaration-regexp) (setq delta (- delta 2)))
 			(+ delta
 				 (if (looking-at block-starter-regexp) 
 						 (+ (current-indentation) tab-width )
@@ -129,7 +130,7 @@
 	 ;; Indent case statements
 	 ((looking-at "^[ \t]*case .*:") (search-indent "switch" "endSwitch")) ;; TODO - fix regex
 	 ;; Indent variable declarations
-	 ((looking-at "^[ \t]*[a-zA-Z0-9_]+\\:\\.*") (var-indent))
+	 ((looking-at var-declaration-regexp) (var-indent))
 
 	 ;; Indent variable assignment
 	 ((looking-at "^[ \t]*[a-zA-Z0-9_]+\\ *=\\.*") (assign-indent))
