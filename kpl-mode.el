@@ -96,7 +96,7 @@
 			(if (looking-at var-declaration-regexp) (setq delta (- delta 2)))
 			(+ delta
 				 (if (looking-at block-starter-regexp) 
-						 (+ (current-indentation) tab-width )
+						 (+ (current-indentation) tab-width)
 					 (current-indentation))))))
 
 
@@ -156,7 +156,7 @@
 
 ;; Why was this in here? It makes everything break	
 ;;    (kill-all-local-variables)
-    (set-syntax-table kpl-mode-syntax-table)p
+    (set-syntax-table kpl-mode-syntax-table)
     (make-local-variable 'comment-start)
     (setq comment-start "--")
     (make-local-variable 'comment-start-skip)
